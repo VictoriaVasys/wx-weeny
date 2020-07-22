@@ -1,28 +1,33 @@
 {
-  "name": "RNGraphQL",
+  "name": "wx-weeny",
   "version": "0.0.1",
-  "private": true,
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "test": "jest",
+    "eject": "expo eject"
   },
   "dependencies": {
+    "expo": "~37.0.3",
+    "react": "~16.9.0",
     "apollo-boost": "^0.3.1",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
-    "react": "16.8.3",
     "react-apollo": "^2.5.5",
-    "react-native": "0.59.5"
+    "react-dom": "~16.9.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
+    "react-native-web": "~0.11.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
+    "babel-preset-expo": "~8.1.0",
+    "@babel/core": "^7.8.6",
     "@babel/runtime": "^7.4.4",
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
-    "metro-react-native-babel-preset": "^0.54.0",
     "react-test-renderer": "16.8.3"
   },
-  "jest": {
-    "preset": "react-native"
-  }
+  "private": true
 }
