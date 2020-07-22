@@ -1,6 +1,6 @@
 module.exports = {
   Query: {
-    pokemon: (_, { id }, { dataSources }) =>
-      dataSources.pokeAPI.getPokemonById({ id })
+    forecast: (_, { lat, lon }, { dataSources }) =>
+      dataSources.forecastAPI.getForecastByLatLon({ lat, lon })
   }
 };

@@ -2,13 +2,13 @@ const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
-const PokeAPI = require('./datasources/poke');
+const ForecastAPI = require('./datasources/forecast');
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
-    pokeAPI: new PokeAPI()
+    forecastAPI: new ForecastAPI()
   })
 });
 
