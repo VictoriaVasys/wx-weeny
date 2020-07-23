@@ -27,7 +27,6 @@ class OpenWeatherMapOneCallAPI extends RESTDataSource {
   }
 
   async getWeatherByLatLon({ lat, lon }) {
-    // const currentWxResponse = await this.get(`data/2.5/onecall?lat=39&lon=-104&exclude=minutely&appid=${OPEN_WEATHER_MAP_KEY}`);
     const currentWxResponse = await this.get(`data/2.5/onecall`);
     return this.currentWxReducer(currentWxResponse);
   }

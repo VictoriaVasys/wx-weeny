@@ -2,14 +2,16 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
   type Query {
-    weather(lat: Int!, lon: Int!): Weather
+    weather(lat: Int!, lon: Int!): Weather,
+    codedObservation(lat: Int!, lon: Int!): String,
+    nextForecastDescription(lat: Int!, lon: Int!): String
   }
 
   type Weather {
-    current: CurrentWxType
+    current: CurrentWx
   }
 
-  type CurrentWxType {
+  type CurrentWx {
     description: String,
     id: String,
     temperature: Float,

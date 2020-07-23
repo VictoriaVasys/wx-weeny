@@ -18,16 +18,23 @@ export default class App extends React.Component {
   };
 
     componentDidMount() {
-    const query = this.getQuery();
+    const query = this.getCurrentQuery();
     this.setState({
       query
     });
+    // const currentQuery = this.getCurrentQuery();
+    // const codedObservationQuery = this.getCodedObservationQuery();
+    // const forecastQuery = this.getForecastQuery();
+    // this.setState({
+    //   currentQuery,
+    //   codedObservationQuery,
+    //   forecastQuery,
+    // });
   }
 
-
-  getQuery = (lat = 39, lon = -104) => {
+  getCurrentQuery = (lat = 39, lon = -104) => {
     return `
-      query getWeatherByLatLon {
+      query GetWeatherByLatLon {
         weather(lat: ${lat}, lon: ${lon}) {
           current {
             description,
@@ -35,9 +42,31 @@ export default class App extends React.Component {
             temperature,
           }
         }
+        codedObservation(lat: ${lat}, lon: ${lon})
+        nextForecastDescription(lat: ${lat}, lon: ${lon})
       }
     `
   }
+
+  // getCodedObservationQuery = (lat = 39, lon = -104) => {
+  //   return `
+  //     query getCodedObservationsByLatLon {
+  //       codedObservation(lat: ${lat}, lon: ${lon}) {
+  //         codedObservation
+  //       }
+  //     }
+  //   `
+  // }
+  //
+  // getForecastQuery = (lat = 39, lon = -104) => {
+  //   return `
+  //     query getForecastByLatLon {
+  //       nextForecastDescription(lat: ${lat}, lon: ${lon}) {
+  //         description
+  //       }
+  //     }
+  //   `
+  // }
 
 
 
@@ -49,12 +78,21 @@ export default class App extends React.Component {
       <ApolloProvider client={client}>
         <Query query={gql`${query}`} >
         {({ loading, error, data }) => {
+          console.log(data)
             if (loading || error) return <ActivityIndicator size="large" color="#0000ff" />
             console.log(data.weather)
+            const weatherProps = {
+              id: data.weather.current.id,
+              codedObservation: data.codedObservation,
+              description: data.nextForecastDescription,
+              temperature: data.weather.current.temperature,
+            }
             return (
               <AppContext.Provider value={{...data.weather}} style={styles.container}>
               {/*<AppContext.Provider value={{...data.weather, onPress: this.onGetNewCondition}} style={styles.container}>*/}
-                {loading ? <Text>Fetching The Weather</Text> : <Weather id={data.weather.current.id} description={data.weather.current.description} temperature={data.weather.current.temperature} />}
+                {loading ?
+                  <Text>Fetching The Weather</Text> :
+                  <Weather {...weatherProps} />}
               </AppContext.Provider>
             )
           }}
