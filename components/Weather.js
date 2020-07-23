@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { weatherConditions } from '../utils/WeatherConditions';
+import WindyMap from "./WindyMap";
+import { WINDY_KEY } from "../utils/APIKeys";
 
 const Weather = ({ codedObservation, description, id, temperature }) => {
   return (
@@ -13,15 +15,14 @@ const Weather = ({ codedObservation, description, id, temperature }) => {
       ]}
     >
       <View style={styles.headerContainer}>
-        <Text style={styles.tempText}>{temperature}˚</Text>
-      </View>
-      <View style={styles.iconContainer}>
         <MaterialCommunityIcons
           size={96}
           name={weatherConditions[id].icon}
           color={'#fff'}
         />
+        <Text style={styles.tempText}>{temperature}˚</Text>
       </View>
+      <WindyMap windyKey={WINDY_KEY} />
       <View style={styles.bodyContainer}>
         <Text style={styles.title}>{weatherConditions[id].title}</Text>
         <Text style={[styles.subtitle, {color: weatherConditions[id].subColor}]}>{weatherConditions[id].subtitle}</Text>
@@ -39,7 +40,6 @@ Weather.propTypes = {
 
 const styles = StyleSheet.create({
   weatherContainer: {
-    border: '16px solid white',
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
@@ -49,12 +49,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  iconContainer: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   tempText: {
     color: '#fff',

@@ -48,28 +48,6 @@ export default class App extends React.Component {
     `
   }
 
-  // getCodedObservationQuery = (lat = 39, lon = -104) => {
-  //   return `
-  //     query getCodedObservationsByLatLon {
-  //       codedObservation(lat: ${lat}, lon: ${lon}) {
-  //         codedObservation
-  //       }
-  //     }
-  //   `
-  // }
-  //
-  // getForecastQuery = (lat = 39, lon = -104) => {
-  //   return `
-  //     query getForecastByLatLon {
-  //       nextForecastDescription(lat: ${lat}, lon: ${lon}) {
-  //         description
-  //       }
-  //     }
-  //   `
-  // }
-
-
-
   render() {
     const { query } = this.state;
     if (!query) return null;
