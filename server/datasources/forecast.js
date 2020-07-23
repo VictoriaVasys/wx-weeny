@@ -10,14 +10,14 @@ class ForecastAPI extends RESTDataSource {
     return {
       name: nextForecast.name,
       temperature: nextForecast.temperature,
-      weatherCondition: nextForecast.shortForecast,
+      detailedForecast: nextForecast.detailedForecast,
     };
   }
 
   async getForecastByLatLon({ lat, lon }) {
     const locationResponse = await this.get(`points/${lat},${lon}`);
     const forecastResponse = await this.get(`${JSON.parse(locationResponse).properties.forecast.split('https://api.weather.gov/')[1]}`);
-    return this.forecastReducer(JSON.parse(forecastResponse).properties.periods[1]);
+    return this.forecastReducer(JSON.parse(forecastResponse).properties.periods[0]);
   }
 }
 

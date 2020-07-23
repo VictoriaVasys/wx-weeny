@@ -8,7 +8,7 @@ const typeDefs = gql`
   type Forecast {
     name: String
     temperature: String
-    weatherCondition: String
+    detailedForecast: String
   }
 `;
 

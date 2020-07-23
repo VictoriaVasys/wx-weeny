@@ -31,7 +31,7 @@ export default class App extends React.Component {
         forecast(lat: ${lat}, lon: ${lon}) {
           name,
           temperature,
-          weatherCondition,
+          detailedForecast,
         }
       }
     `
@@ -51,7 +51,7 @@ export default class App extends React.Component {
             return (
               <AppContext.Provider value={{...data.forecast}} style={styles.container}>
               {/*<AppContext.Provider value={{...data.forecast, onPress: this.onGetNewCondition}} style={styles.container}>*/}
-                {loading ? <Text>Fetching The Weather</Text> : <Weather weather={data.forecast.weatherCondition} temperature={data.forecast.temperature} />}
+                {loading ? <Text>Fetching The Weather</Text> : <Weather detailedForecast={data.forecast.detailedForecast} temperature={data.forecast.temperature} />}
               </AppContext.Provider>
             )
           }}

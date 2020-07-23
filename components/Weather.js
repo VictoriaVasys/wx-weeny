@@ -4,14 +4,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { weatherConditions } from '../utils/WeatherConditions';
 
-const Weather = ({ weather, temperature }) => {
+const Weather = ({ detailedForecast, temperature }) => {
 
 
   const condition = Object.keys(weatherConditions).find(condition => {
-    console.log(condition);
-    return weather.includes(condition)
+    return detailedForecast.includes(condition)
   })
-  console.log({condition})
 
   return (
     <View
@@ -21,57 +19,67 @@ const Weather = ({ weather, temperature }) => {
       ]}
     >
       <View style={styles.headerContainer}>
+        <Text style={styles.tempText}>{temperature}˚</Text>
+      </View>
+      <View style={styles.iconContainer}>
         <MaterialCommunityIcons
-          size={72}
+          size={96}
           name={weatherConditions[condition].icon}
           color={'#fff'}
         />
-        <Text style={styles.tempText}>{temperature}˚</Text>
       </View>
       <View style={styles.bodyContainer}>
-        <Text style={styles.title}>{weatherConditions[condition].title}</Text>
-        <Text style={styles.subtitle}>
-          {weatherConditions[condition].subtitle}
-        </Text>
+        <Text style={styles.title}>{weatherConditions[condition].subtitle}</Text>
+        <Text style={styles.description}>{detailedForecast}</Text>
       </View>
     </View>
   );
 };
 
 Weather.propTypes = {
-  temperature: PropTypes.number.isRequired,
-  weather: PropTypes.string
+  detailedForecast: PropTypes.string,
+  temperature: PropTypes.string.isRequired,
 };
 
 const styles = StyleSheet.create({
   weatherContainer: {
-    flex: 1
+    border: '16px solid white',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    justifyContent: 'space-between',
+    padding: 8,
   },
   headerContainer: {
-    flex: 1,
+    display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  iconContainer: {
     alignItems: 'center',
-    justifyContent: 'space-around'
+    display: 'flex',
+    justifyContent: 'center',
   },
   tempText: {
+    color: '#fff',
     fontSize: 72,
-    color: '#fff'
   },
   bodyContainer: {
-    flex: 2,
     alignItems: 'flex-start',
+    display: 'flex',
     justifyContent: 'flex-end',
-    paddingLeft: 25,
-    marginBottom: 40
+    padding: 16,
+    paddingBottom: 32,
   },
   title: {
-    fontSize: 60,
-    color: '#fff'
+    color: '#fff',
+    fontSize: 48,
+    marginBottom: 16,
   },
-  subtitle: {
+  description: {
+    color: '#fff',
     fontSize: 24,
-    color: '#fff'
-  }
+  },
 });
 
 export default Weather;
