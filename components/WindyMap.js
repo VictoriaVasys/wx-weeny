@@ -10,29 +10,11 @@ export default class WindyMap extends Component {
     zoom: 6,
 
     pickerOpen: true,
-    // pickerLat: 39,
-    // pickerLng: -104,
+    pickerLat: 39,
+    pickerLng: -104,
 
     overlay: "wind"
   };
-
-  // componentDidMount() {
-  //   let interval = setInterval(() => {
-  //     this.setState({
-  //       pickerLat: this.state.pickerLat + 1,
-  //       pickerLng: this.state.pickerLng + 1
-  //     });
-  //   }, 1000);
-  //
-  //   setTimeout(() => {
-  //     clearInterval(interval);
-  //     this.setState({ pickerOpen: false });
-  //   }, 6000);
-  //
-  //   setTimeout(() => {
-  //     this.setState({ pickerOpen: true, pickerLat: 25, pickerLng: 40 });
-  //   }, 7000);
-  // }
 
   render() {
     const position = [this.state.lat, this.state.lng];
@@ -41,8 +23,8 @@ export default class WindyMap extends Component {
       <Map
         className="leaflet-container"
         windyKey={this.props.windyKey}
-        windyLabels={false}
-        windyControls={false}
+        windyLabels={true}
+        windyControls={true}
         overlay={this.state.overlay}
         overlayOpacity={0.5}
         particlesAnim={false}
