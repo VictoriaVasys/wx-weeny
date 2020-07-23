@@ -1,6 +1,6 @@
 module.exports = {
   Query: {
-    forecast: (_, { lat, lon }, { dataSources }) =>
-      dataSources.forecastAPI.getForecastByLatLon({ lat, lon })
+    weather: (_, { lat, lon }, { dataSources }) =>
+      dataSources.openWeatherMapOneCallAPI.getWeatherByLatLon({ lat, lon })
   }
 };

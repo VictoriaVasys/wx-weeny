@@ -2,27 +2,49 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
   type Query {
-    forecast(lat: Int!, lon: Int!): Forecast
+    weather(lat: Int!, lon: Int!): Weather
   }
 
-  type Forecast {
-    name: String
-    temperature: String
-    detailedForecast: String
+  type Weather {
+    current: CurrentWxType
+  }
+
+  type CurrentWxType {
+    description: String,
+    id: String,
+    temperature: Float,
   }
 `;
 
 module.exports = typeDefs;
 
-// type Pokemon {
-//   id: ID!
-//   name: String
-//   desc: String
-//   pic: String
-//   types: [PokemonType]
+// type DailyType {
+//   days: [DaysType]
+// }
+//
+// type DaysType {
+//   temp: Int
+//   forecast: String
 // }
 
-// type PokemonType {
-//   id: Int
-//   name: String
+//
+// type CurrentType {
+//   temp: Int
+//   wind_speed: Int
+//   weather: [WeatherType]
+// }
+//
+// type WeatherType {
+//   main: String
+//   description: String
+// }
+//
+// type DailyType {
+//   temp: [DailyTempType]
+//   weather: [WeatherType]
+// }
+//
+// type DailyTempType {
+//   max: Int
+//   min: Int
 // }

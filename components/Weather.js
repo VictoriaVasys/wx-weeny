@@ -4,18 +4,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { weatherConditions } from '../utils/WeatherConditions';
 
-const Weather = ({ detailedForecast, temperature }) => {
-
-
-  const condition = Object.keys(weatherConditions).find(condition => {
-    return detailedForecast.includes(condition)
-  })
-
+const Weather = ({ description, id, temperature }) => {
+console.log({ description, id, temperature })
   return (
     <View
       style={[
         styles.weatherContainer,
-        { backgroundColor: weatherConditions[condition].color }
+        { backgroundColor: weatherConditions[id].color }
       ]}
     >
       <View style={styles.headerContainer}>
@@ -24,21 +19,22 @@ const Weather = ({ detailedForecast, temperature }) => {
       <View style={styles.iconContainer}>
         <MaterialCommunityIcons
           size={96}
-          name={weatherConditions[condition].icon}
+          name={weatherConditions[id].icon}
           color={'#fff'}
         />
       </View>
       <View style={styles.bodyContainer}>
-        <Text style={styles.title}>{weatherConditions[condition].subtitle}</Text>
-        <Text style={styles.description}>{detailedForecast}</Text>
+        <Text style={styles.title}>{weatherConditions[id].title}</Text>
+        <Text style={styles.subtitle}>{weatherConditions[id].subtitle}</Text>
+        <Text style={styles.description}>{description}</Text>
       </View>
     </View>
   );
 };
 
 Weather.propTypes = {
-  detailedForecast: PropTypes.string,
-  temperature: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  temperature: PropTypes.number.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -74,6 +70,10 @@ const styles = StyleSheet.create({
   title: {
     color: '#fff',
     fontSize: 48,
+  },
+  subtitle: {
+    color: '#fff',
+    fontSize: 36,
     marginBottom: 16,
   },
   description: {

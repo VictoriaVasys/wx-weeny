@@ -7,7 +7,7 @@ import ApolloClient from "apollo-boost";
 import gql from "graphql-tag";
 
 const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
-export const AppContext = React.createContext({ data: { forecast: null } });
+export const AppContext = React.createContext({ data: { weather: null } });
 
 
 import Weather from './components/Weather';
@@ -27,11 +27,13 @@ export default class App extends React.Component {
 
   getQuery = (lat = 39, lon = -104) => {
     return `
-      query getForecastByLatLon {
-        forecast(lat: ${lat}, lon: ${lon}) {
-          name,
-          temperature,
-          detailedForecast,
+      query getWeatherByLatLon {
+        weather(lat: ${lat}, lon: ${lon}) {
+          current {
+            description,
+            id,
+            temperature,
+          }
         }
       }
     `
@@ -48,10 +50,11 @@ export default class App extends React.Component {
         <Query query={gql`${query}`} >
         {({ loading, error, data }) => {
             if (loading || error) return <ActivityIndicator size="large" color="#0000ff" />
+            console.log(data.weather)
             return (
-              <AppContext.Provider value={{...data.forecast}} style={styles.container}>
-              {/*<AppContext.Provider value={{...data.forecast, onPress: this.onGetNewCondition}} style={styles.container}>*/}
-                {loading ? <Text>Fetching The Weather</Text> : <Weather detailedForecast={data.forecast.detailedForecast} temperature={data.forecast.temperature} />}
+              <AppContext.Provider value={{...data.weather}} style={styles.container}>
+              {/*<AppContext.Provider value={{...data.weather, onPress: this.onGetNewCondition}} style={styles.container}>*/}
+                {loading ? <Text>Fetching The Weather</Text> : <Weather id={data.weather.current.id} description={data.weather.current.description} temperature={data.weather.current.temperature} />}
               </AppContext.Provider>
             )
           }}

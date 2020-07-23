@@ -2,13 +2,13 @@ const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
 
-const ForecastAPI = require('./datasources/forecast');
+const OpenWeatherMapOneCallAPI = require('./datasources/openWeatherMapOneCall');
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
-    forecastAPI: new ForecastAPI()
+    openWeatherMapOneCallAPI: new OpenWeatherMapOneCallAPI()
   })
 });
 
