@@ -14,25 +14,29 @@ import Weather from './components/Weather';
 
 export default class App extends React.Component {
   state = {
+    lat: 39.710850,
+    lon: -105.081505,
     query: null,
   };
 
     componentDidMount() {
-    const query = this.getCurrentQuery();
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          this.setState({ lat: position.coords.latitude, lon: position.coords.longitude });
+        },
+        error => {
+          this.setState({
+            error: 'Error Getting Weather Condtions'
+          });
+        }
+      );
+    const query = this.getCurrentQuery(this.state.lat, this.state.lon);
     this.setState({
       query
     });
-    // const currentQuery = this.getCurrentQuery();
-    // const codedObservationQuery = this.getCodedObservationQuery();
-    // const forecastQuery = this.getForecastQuery();
-    // this.setState({
-    //   currentQuery,
-    //   codedObservationQuery,
-    //   forecastQuery,
-    // });
   }
 
-  getCurrentQuery = (lat = 39, lon = -104) => {
+  getCurrentQuery = (lat, lon) => {
     return `
       query GetWeatherByLatLon {
         weather(lat: ${lat}, lon: ${lon}) {
@@ -63,6 +67,8 @@ export default class App extends React.Component {
               id: data.weather.current.id,
               codedObservation: data.codedObservation,
               description: data.nextForecastDescription,
+              lat: this.state.lat,
+              lon: this.state.lon,
               temperature: data.weather.current.temperature,
             }
             return (

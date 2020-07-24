@@ -6,7 +6,7 @@ import { weatherConditions } from '../utils/WeatherConditions';
 import WindyMap from "./WindyMap";
 import { WINDY_KEY } from "../utils/APIKeys";
 
-const Weather = ({ codedObservation, description, id, temperature }) => {
+const Weather = ({ codedObservation, description, id, lat, lon, temperature }) => {
   return (
     <View
       style={[
@@ -22,7 +22,7 @@ const Weather = ({ codedObservation, description, id, temperature }) => {
         />
         <Text style={styles.tempText}>{temperature}˚</Text>
       </View>
-      <WindyMap windyKey={WINDY_KEY} />
+      <WindyMap lat={lat} lon={lon} windyKey={WINDY_KEY} />
       <View style={styles.bodyContainer}>
         <Text style={styles.title}>{weatherConditions[id].title}</Text>
         <Text style={[styles.subtitle, {color: weatherConditions[id].subColor}]}>{weatherConditions[id].subtitle}</Text>

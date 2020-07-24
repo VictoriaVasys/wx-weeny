@@ -1,0 +1,7 @@
+#windy .leaflet-touch .leaflet-control-layers {
+  display: none;
+}
+
+#windy .leaflet-touch .leaflet-control-attribution {
+  display: none;
+}
