@@ -46,7 +46,7 @@ yarn
 yarn start
 ```
 
-6. Update `App.js` with your machine's internal IP address (or use ngrok):
+6. Update `Home.js` with your machine's internal IP address (or use ngrok):
 
 ```
 const client = new ApolloClient({ uri: 'http://YOUR_INTERNAL_IP_ADDRESS:4000/graphql' });
