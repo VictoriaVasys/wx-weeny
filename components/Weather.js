@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { Linking, StyleSheet, Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { weatherConditions } from '../utils/WeatherConditions';
@@ -28,6 +28,7 @@ const Weather = ({ codedObservation, description, id, lat, lon, temperature }) =
         <Text style={[styles.subtitle, {color: weatherConditions[id].subColor}]}>{weatherConditions[id].subtitle}</Text>
         <Text style={styles.description}>{description}</Text>
         <Text style={styles.observation}>{codedObservation}</Text>
+        <Text style={styles.link} onPress={ ()=> Linking.openURL('http://www.theweatherprediction.com/jargon/') } >Glossary of NWS Forecast Discussion Jargon</Text>
       </View>
     </View>
   );
@@ -79,6 +80,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 16,
   },
+  link: {
+    color: '#4d79ff',
+    fontSize: 10,
+  }
 });
 
 export default Weather;
