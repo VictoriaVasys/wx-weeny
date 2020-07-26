@@ -22,7 +22,6 @@ export default class Home extends React.Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
-        console.log({ lat: position.coords.latitude, lon: position.coords.longitude })
         this.setState({ lat: position.coords.latitude, lon: position.coords.longitude });
       },
       error => {
@@ -61,9 +60,7 @@ export default class Home extends React.Component {
       <ApolloProvider client={client}>
         <Query query={gql`${query}`} >
         {({ loading, error, data }) => {
-          console.log(data)
             if (loading || error) return <ActivityIndicator size="large" color="#0000ff" />
-            console.log(data.weather)
             const weatherProps = {
               id: data.weather.current.id,
               codedObservation: data.codedObservation,

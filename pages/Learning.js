@@ -5,7 +5,6 @@ import links from '../links.js'
 export default function Learning() {
   const linksSize = Object.keys(links).length
   const randomLink = Object.keys(links)[Math.floor(Math.random(linksSize) * 10)]
-  console.log({linksSize, randomLink})
   return (
     <Fragment>
       <Text>{randomLink}</Text>
