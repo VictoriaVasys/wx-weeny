@@ -19,17 +19,18 @@ export default class Home extends React.Component {
     query: null,
   };
 
-    componentDidMount() {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          this.setState({ lat: position.coords.latitude, lon: position.coords.longitude });
-        },
-        error => {
-          this.setState({
-            error: 'Error Getting Weather Condtions'
-          });
-        }
-      );
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        console.log({ lat: position.coords.latitude, lon: position.coords.longitude })
+        this.setState({ lat: position.coords.latitude, lon: position.coords.longitude });
+      },
+      error => {
+        this.setState({
+          error: 'Error Getting Weather Condtions'
+        });
+      }
+    );
     const query = this.getCurrentQuery(this.state.lat, this.state.lon);
     this.setState({
       query
