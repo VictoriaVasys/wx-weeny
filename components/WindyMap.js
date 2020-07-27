@@ -20,11 +20,11 @@ export default class WindyMap extends Component {
         windyLabels={true}
         windyControls={true}
         overlay="wind"
-        overlayOpacity={0.5}
-        particlesAnim={false}
-        zoom={6}
+        overlayOpacity={0.9}
+        particlesAnim={true}
+        zoom={7}
         center={position}
-        removeWindyLayers
+        // removeWindyLayers
         onWindyMapReady={() => {
           console.log("Windy Map Loaded!");
         }}
@@ -47,7 +47,7 @@ export default class WindyMap extends Component {
         // onPickerClosed={() => {
         //   this.setState({pickerOpen: false})
         // }}
-        style={{flex: 2}}
+        style={{borderRadius: 4, flex: 2}}
         mapElements={
           <React.Fragment>
             <LayersControl>
