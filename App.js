@@ -17,15 +17,15 @@ const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
 const Tab = createBottomTabNavigator();
 export const AppContext = React.createContext({ data: { weather: null } });
 
-export const FadeInView = (props) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+export const FadeOutView = (props) => {
+  const fadeAnim = useRef(new Animated.Value(1)).current  // Initial value for opacity: 0
 
   useEffect(() => {
     Animated.timing(
       fadeAnim,
       {
-        toValue: 1,
-        duration: 500,
+        toValue: 0,
+        duration: 1000,
       }
     ).start();
   }, [fadeAnim])
@@ -94,6 +94,7 @@ export default class App extends Component {
             if (loading || error) return <Text style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></Text>
             return (
               <AppContext.Provider value={{...data, lat, lon}} style={styles.loading}>
+                {/*<FadeOutView style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></FadeOutView>*/}
                 <NavigationContainer>
                   <Tab.Navigator
                     screenOptions={({ route }) => ({

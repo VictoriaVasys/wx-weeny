@@ -25,7 +25,8 @@
     "react-native-safe-area-context": "^3.1.1",
     "react-native-screens": "^2.9.0",
     "react-native-web": "~0.11.7",
-    "react-windy-leaflet": "^0.1.11"
+    "react-windy-leaflet": "^0.1.11",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

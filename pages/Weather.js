@@ -1,9 +1,8 @@
 import React, {useContext} from 'react';
 import { Linking, Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import PropTypes from 'prop-types';
 import { weatherConditions } from '../utils/WeatherConditions';
-import { AppContext, FadeInView, styles } from "../App";
+import { AppContext, styles } from "../App";
 
 const Weather = () => {
   const data = useContext(AppContext);
@@ -13,7 +12,7 @@ const Weather = () => {
   const temperature = data.weather.current.temperature
 
   return (
-    <FadeInView style={styles.weatherContainer}>
+    <View style={styles.weatherContainer}>
       <View style={[styles.titleContainer, {marginBottom: 0}]}>
         <MaterialCommunityIcons
           size={96}
@@ -37,7 +36,7 @@ const Weather = () => {
         <Text style={styles.observation}>{codedObservation}</Text>
         <Text style={styles.link} onPress={ ()=> Linking.openURL('http://www.theweatherprediction.com/jargon/') } >Glossary of NWS Forecast Discussion Jargon</Text>
       </View>
-    </FadeInView>
+    </View>
   );
 };
 
