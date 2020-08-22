@@ -5,13 +5,14 @@
     "name": "wx-weeny",
     "slug": "wx-weeny",
     "platforms": [
-      "ios",
       "android",
+      "ios",
       "web"
     ],
+    "privacy": "unlisted",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/wx-weeny-logo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -25,6 +26,24 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "description": "Combines various weather APIs to get the most informative weather conditions & daily forecasts, provide learning opportunities through random weather facts, and to stay up-to-date with the spc's twitter feed.",
+    "githubUrl": "https://github.com/VictoriaVasys/wx-weenie",
+    "packagerOpts": {
+      "config": "metro.config.js",
+      "sourceExts": [
+        "expo.ts",
+        "expo.tsx",
+        "expo.js",
+        "expo.jsx",
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "json",
+        "wasm",
+        "svg"
+      ]
     }
   }
 }

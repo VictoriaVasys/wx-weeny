@@ -12,7 +12,7 @@ export default function Tweets() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>NWS WPC tweets</Text>
-      <section className="twitterContainer" style={{overflow: 'scroll'}}>
+      <section className="twitterContainer" style={{borderRadius: 16, overflow: 'scroll'}}>
         <div className="twitter-embed">
           <a
             className="twitter-timeline"

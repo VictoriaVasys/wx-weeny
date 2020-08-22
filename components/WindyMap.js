@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Map, LayersControl, TileLayer, Marker, Popup } from "react-windy-leaflet";
-import './WindyMap.css'
+// import '../components/WindyMap.css'
 
 const { BaseLayer, Overlay } = LayersControl;
 
@@ -47,7 +47,7 @@ export default class WindyMap extends Component {
         // onPickerClosed={() => {
         //   this.setState({pickerOpen: false})
         // }}
-        style={{borderRadius: 4, flex: 2}}
+        style={{borderRadius: 16, flex: 2}}
         mapElements={
           <React.Fragment>
             <LayersControl>

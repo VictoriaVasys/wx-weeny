@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text } from 'react-native';
+import React, { Component, useRef, useEffect } from 'react';
+import { Animated, Image, StyleSheet, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,6 +16,31 @@ import Tweets from './pages/Tweets'
 const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
 const Tab = createBottomTabNavigator();
 export const AppContext = React.createContext({ data: { weather: null } });
+
+export const FadeInView = (props) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+
+  useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 500,
+      }
+    ).start();
+  }, [fadeAnim])
+
+  return (
+    <Animated.View                 // Special animatable View
+      style={{
+        ...props.style,
+        opacity: fadeAnim,         // Bind opacity to animated value
+      }}
+    >
+      {props.children}
+    </Animated.View>
+  );
+}
 
 
 export default class App extends Component {
@@ -66,7 +91,7 @@ export default class App extends Component {
       <ApolloProvider client={client}>
         <Query query={gql`${query}`} >
           {({ loading, error, data }) => {
-            if (loading || error) return <Text style={styles.loading}>Fetching the Weather</Text>
+            if (loading || error) return <Text style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></Text>
             return (
               <AppContext.Provider value={{...data, lat, lon}} style={styles.loading}>
                 <NavigationContainer>
@@ -90,10 +115,10 @@ export default class App extends Component {
                       },
                     })}
                     tabBarOptions={{
-                      activeTintColor: '#FFF',
-                      inactiveTintColor: '#b0b8db',
+                      activeTintColor: '#C1E9C0',
+                      inactiveTintColor: '#707a8a',
                       style: {
-                        backgroundColor: '#6271b7',
+                        backgroundColor: '#232323',
                         paddingBottom: '4px',
                       },
                     }}
@@ -116,27 +141,31 @@ export default class App extends Component {
 export const styles = StyleSheet.create({
   loading: {
     alignItems: 'center',
-    backgroundColor: '#6271b7',
-    color: '#FFF',
+    backgroundColor: '#232323',
     display: 'flex',
-    fontFamily: 'Courier New',
-    fontSize: 72,
     height: '100%',
     justifyContent: 'center',
     padding: 16,
     width: '100%',
   },
+  loadingImage: {
+    width: 160,
+    height: 160,
+  },
   container: {
-    backgroundColor: '#6271b7',
+    backgroundColor: '#232323',
     height: '100%',
     padding: 24,
+    animation: 'fadeInAnimation ease 3s',
+    animationIterationCount: 1,
+    animationFillMode: 'forwards',
   },
   body: {
     justifyContent: 'center',
     height: '90%',
   },
   title: {
-    color: '#FFF',
+    color: '#C1E9C0',
     fontFamily: 'Courier New',
     fontSize: 36,
     marginBottom: 16,
@@ -144,25 +173,25 @@ export const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   subtitle: {
-    color: '#fff',
+    color: '#C1E9C0',
     fontFamily: 'Courier New',
     fontSize: 24,
     marginBottom: 16,
   },
   description: {
-    color: '#fff',
+    color: '#C1E9C0',
     fontFamily: 'Courier New',
     fontSize: 16,
   },
   weatherContainer: {
-    backgroundColor: '#6271b7',
+    backgroundColor: '#232323',
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'space-between',
     padding: 16,
   },
-  headerContainer: {
+  titleContainer: {
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
@@ -170,7 +199,7 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   tempText: {
-    color: '#fff',
+    color: '#C1E9C0',
     fontFamily: 'Courier New',
     fontSize: 60,
   },
@@ -181,14 +210,14 @@ export const styles = StyleSheet.create({
     padding: 8,
   },
   observation: {
-    color: '#fff',
+    color: '#C1E9C0',
     fontFamily: 'Courier New',
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 16,
   },
   link: {
-    color: '#fff',
+    color: '#C1E9C0',
     display: 'block',
     fontFamily: 'Courier New',
     fontSize: 12,

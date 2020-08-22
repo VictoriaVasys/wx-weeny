@@ -1,12 +1,12 @@
 {
-  "name": "poke-graphql-server",
+  "name": "wx-graphql-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "",
+  "author": "Victoria Vasys",
   "license": "ISC",
   "dependencies": {
     "apollo-datasource-rest": "^0.4.0",

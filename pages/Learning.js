@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Text, View } from 'react-native';
 import links from '../links.js'
 import { styles } from "../App";
-import './Learning.css'
+// import '../pages/Learning.css'
 
 export default function Learning() {
   const linksSize = Object.keys(links).length
@@ -19,10 +19,29 @@ export default function Learning() {
       <Text style={styles.title}>{fact.toLowerCase()}</Text>
       <div style={{display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', overflow: 'hidden'}}>
         <div style={{marginBottom: 0, overflow: 'scroll'}}>
-          <table style={{color: '#FFF', fontFamily: 'Courier New', marginBottom: 8}}><div dangerouslySetInnerHTML={{__html: links[fact]}} /></table>
+          <table style={{color: '#C1E9C0', fontFamily: 'Courier New', marginBottom: 8}}><div dangerouslySetInnerHTML={{__html: links[fact]}} /></table>
         </div>
-        <Button color="#404e8c" onPress={onGetNewFact} title="Get new fact" />
+        <button onClick={onGetNewFact} style={learningStyles.button}>
+          <Text style={learningStyles.buttonText}>Get new fact</Text>
+        </button>
       </div>
     </View>
   );
+}
+
+const learningStyles = {
+  button: {
+    backgroundColor: '#C1E9C0',
+    border: 'none',
+    borderRadius: 16,
+    marginTop: 16,
+    padding: 8,
+  },
+  buttonText: {
+    backgroundColor: '#C1E9C0',
+    color: '#232323',
+    fontFamily: 'Courier New',
+    fontSize: 16,
+    fontWeight: 'bold',
+  }
 }

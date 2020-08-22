@@ -11,11 +11,11 @@ export default function WPCSurfaceAnalysis() {
     <View style={styles.container}>
       <Text style={styles.title}>Surface Analysis</Text>
       <View style={styles.body}>
-        <div style={{ height: '50%', marginBottom: 16, overflow: 'scroll'}}>
+        <div style={{ borderRadius: 16, height: '50%', marginBottom: 16, overflow: 'scroll'}}>
           <img
             alt="NWS Weather Prediction Center surface analysis"
             src="https://www.wpc.ncep.noaa.gov/sfc/namussfc15wbg.gif"
-            style={{borderRadius: 4, width: '150%'}}
+            style={{objectFit: 'none', width: '150%'}}
           />
           <Text style={styles.link} onPress={ ()=> Linking.openURL('https://www.wpc.ncep.noaa.gov/html/stationplot.shtml') } >Decode station plots</Text>
         </div>
