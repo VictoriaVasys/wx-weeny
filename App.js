@@ -1,4 +1,4 @@
-import React, { Component, useRef, useEffect } from 'react';
+import React, {Component, useRef, useEffect, Fragment} from 'react';
 import { Animated, Image, StyleSheet, Text } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
@@ -91,47 +91,52 @@ export default class App extends Component {
       <ApolloProvider client={client}>
         <Query query={gql`${query}`} >
           {({ loading, error, data }) => {
-            if (loading || error) return <Text style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></Text>
+            if (loading || error) return <Text style={styles.loading}>
+              <Image style={styles.logo} source={require('./assets/wx-weeny-logo.png')} />
+              <Image style={styles.loadingIndicator} source={require('./assets/rolling.svg')} />
+            </Text>
             return (
-              <AppContext.Provider value={{...data, lat, lon}} style={styles.loading}>
+              <Fragment>
                 {/*<FadeOutView style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></FadeOutView>*/}
-                <NavigationContainer>
-                  <Tab.Navigator
-                    screenOptions={({ route }) => ({
-                      tabBarIcon: ({ focused, color, size }) => {
-                        let iconName;
+                <AppContext.Provider value={{...data, lat, lon}} style={styles.loading}>
+                  <NavigationContainer>
+                    <Tab.Navigator
+                      screenOptions={({ route }) => ({
+                        tabBarIcon: ({ focused, color, size }) => {
+                          let iconName;
 
-                        if (route.name === 'Home') {
-                          iconName = !focused ? 'home' : 'home-circle'
-                        } else if (route.name === 'Learning') {
-                          iconName = !focused ? 'thought-bubble-outline' : 'thought-bubble';
-                        } else if (route.name === 'Surface Analysis') {
-                          iconName = !focused ? 'weather-windy' : 'weather-windy-variant';
-                        } else if (route.name === 'Tweets') {
-                          iconName = !focused ? 'twitter' : 'twitter-circle';
-                        }
+                          if (route.name === 'Home') {
+                            iconName = !focused ? 'home' : 'home-circle'
+                          } else if (route.name === 'Learning') {
+                            iconName = !focused ? 'thought-bubble-outline' : 'thought-bubble';
+                          } else if (route.name === 'Surface Analysis') {
+                            iconName = !focused ? 'weather-windy' : 'weather-windy-variant';
+                          } else if (route.name === 'Tweets') {
+                            iconName = !focused ? 'twitter' : 'twitter-circle';
+                          }
 
-                        // You can return any component that you like here!
-                        return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-                      },
-                    })}
-                    tabBarOptions={{
-                      activeTintColor: '#C1E9C0',
-                      inactiveTintColor: '#707a8a',
-                      style: {
-                        backgroundColor: '#232323',
-                        paddingBottom: '4px',
-                      },
-                    }}
-                  >
-                    <Tab.Screen name="Home" component={Weather} />
-                    <Tab.Screen name="Surface Analysis" component={WPCSurfaceAnalysis} />
-                    <Tab.Screen name="Learning" component={Learning} />
-                    <Tab.Screen name="Tweets" component={Tweets} />
-                  </Tab.Navigator>
-                </NavigationContainer>
-              </AppContext.Provider>
-              )
+                          // You can return any component that you like here!
+                          return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+                        },
+                      })}
+                      tabBarOptions={{
+                        activeTintColor: '#C1E9C0',
+                        inactiveTintColor: '#707a8a',
+                        style: {
+                          backgroundColor: '#232323',
+                          paddingBottom: '4px',
+                        },
+                      }}
+                    >
+                      <Tab.Screen name="Home" component={Weather} />
+                      <Tab.Screen name="Surface Analysis" component={WPCSurfaceAnalysis} />
+                      <Tab.Screen name="Learning" component={Learning} />
+                      <Tab.Screen name="Tweets" component={Tweets} />
+                    </Tab.Navigator>
+                  </NavigationContainer>
+                </AppContext.Provider>
+              </Fragment>
+            )
           }}
           </Query>
       </ApolloProvider>
@@ -144,14 +149,20 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#232323',
     display: 'flex',
+    flexDirection: 'column',
     height: '100%',
     justifyContent: 'center',
     padding: 16,
     width: '100%',
   },
-  loadingImage: {
-    width: 160,
+  logo: {
     height: 160,
+    width: 160,
+  },
+  loadingIndicator: {
+    marginTop: 16,
+    height: 40,
+    width: 40,
   },
   container: {
     backgroundColor: '#232323',

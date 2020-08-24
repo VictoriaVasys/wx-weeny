@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import { Linking, Text, View } from 'react-native';
+import React, {Fragment, useContext, useLayoutEffect} from 'react';
+import { Image, Linking, Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { weatherConditions } from '../utils/WeatherConditions';
 import { AppContext, styles } from "../App";
