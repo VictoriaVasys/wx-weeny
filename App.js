@@ -45,7 +45,7 @@ export const FadeOutView = (props) => {
 
 export const Root = styled.div`
   align-items: center;
-  background-color: #C1E9C0;
+  background-color: blanchedalmond;
   display: flex;
   height: 100%;
   font-family: 'Verdana';
