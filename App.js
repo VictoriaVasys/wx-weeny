@@ -1,6 +1,6 @@
 import React, {Component, useRef, useEffect, Fragment} from 'react';
 import { Animated, Image, StyleSheet, Text, View } from 'react-native';
-import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
+import { AntDesign, Feather, Fontisto, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -141,25 +141,26 @@ export default class App extends Component {
                               let iconName;
 
                               if (route.name === 'Home') {
-                                iconName = !focused ? 'home' : 'home-circle'
+                                return focused ? <Fontisto name="home" size={20} color={color} /> : <SimpleLineIcons name="home" size={20} color={color} />
+                              } else if (route.name === 'Surface') {
+                                iconName = !focused ? 'wind' : 'cloudy-gusts';
+                                return <Fontisto name={iconName} size={20} color={color} />
                               } else if (route.name === 'Learning') {
                                 iconName = !focused ? 'lightbulb-on-outline' : 'lightbulb-on';
-                              } else if (route.name === 'Surface') {
-                                iconName = !focused ? 'weather-windy' : 'weather-windy-variant';
+                                return <MaterialCommunityIcons name={iconName} size={24} color={color} />
                               } else if (route.name === 'Tweets') {
-                                iconName = !focused ? 'twitter' : 'twitter-circle';
+                                return focused ? <AntDesign name="twitter" size={22} color={color} /> : <Feather name="twitter" size={22} color={color} />
                               }
-
-                              if (route.name === 'Tweets' && !focused) return <Feather name={iconName} size={size} color={color} />;
-                              return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
                             },
                           })}
                           tabBarOptions={{
                             activeTintColor: '#C1E9C0',
-                            inactiveTintColor: '#707a8a',
+                            adaptive: false,
+                            inactiveTintColor: '#878F9B',
                             style: {
                               backgroundColor: '#232323',
-                              paddingBottom: '4px',
+                              paddingBottom: '6px',
+                              paddingTop: '4px',
                             },
                           }}
                         >
