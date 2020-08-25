@@ -1,6 +1,6 @@
 import React, {Component, useRef, useEffect, Fragment} from 'react';
-import { Animated, Image, StyleSheet, Text } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Animated, Image, StyleSheet, Text, View } from 'react-native';
+import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -12,6 +12,7 @@ import Weather from './pages/Weather';
 import Learning from './pages/Learning'
 import WPCSurfaceAnalysis from './pages/WPCSurfaceAnalysis'
 import Tweets from './pages/Tweets'
+import styled from "styled-components";
 
 const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
 const Tab = createBottomTabNavigator();
@@ -42,6 +43,38 @@ export const FadeOutView = (props) => {
   );
 }
 
+export const Root = styled.div`
+  align-items: center;
+  background-color: #C1E9C0;
+  display: flex;
+  height: 100%;
+  font-family: 'Verdana';
+  justify-content: center;
+
+  a {
+    color: #89d587;
+  }
+
+  b {
+    font-weight: normal;
+  }
+`
+export const MainContainer = styled.div`
+  height: 100%;
+  max-height: 840px;
+  max-width: 440px;
+  width: 100%;
+
+  & > div {
+    height: 100%;
+  }
+
+  @media only screen and (min-width: 440px) {
+    & > div > div {
+      border-radius: 20px;
+    }
+  }
+`
 
 export default class App extends Component {
   state = {
@@ -88,58 +121,62 @@ export default class App extends Component {
     if (!query) return null;
 
     return (
-      <ApolloProvider client={client}>
-        <Query query={gql`${query}`} >
-          {({ loading, error, data }) => {
-            if (loading || error) return <Text style={styles.loading}>
-              <Image style={styles.logo} source={require('./assets/wx-weeny-logo.png')} />
-              <Image style={styles.loadingIndicator} source={require('./assets/rolling.svg')} />
-            </Text>
-            return (
-              <Fragment>
-                {/*<FadeOutView style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></FadeOutView>*/}
-                <AppContext.Provider value={{...data, lat, lon}} style={styles.loading}>
-                  <NavigationContainer>
-                    <Tab.Navigator
-                      screenOptions={({ route }) => ({
-                        tabBarIcon: ({ focused, color, size }) => {
-                          let iconName;
+      <Root>
+        <MainContainer>
+          <ApolloProvider client={client}>
+            <Query query={gql`${query}`} >
+              {({ loading, error, data }) => {
+                if (loading || error) return <Text style={styles.loading}>
+                  <Image style={styles.logo} source={require('./assets/wx-weeny-logo.png')} />
+                  <Image style={styles.loadingIndicator} source={require('./assets/rolling.svg')} />
+                </Text>
+                return (
+                  <Fragment>
+                    {/*<FadeOutView style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></FadeOutView>*/}
+                    <AppContext.Provider value={{...data, lat, lon}}>
+                      <NavigationContainer>
+                        <Tab.Navigator
+                          screenOptions={({ route }) => ({
+                            tabBarIcon: ({ focused, color, size }) => {
+                              let iconName;
 
-                          if (route.name === 'Home') {
-                            iconName = !focused ? 'home' : 'home-circle'
-                          } else if (route.name === 'Learning') {
-                            iconName = !focused ? 'thought-bubble-outline' : 'thought-bubble';
-                          } else if (route.name === 'Surface Analysis') {
-                            iconName = !focused ? 'weather-windy' : 'weather-windy-variant';
-                          } else if (route.name === 'Tweets') {
-                            iconName = !focused ? 'twitter' : 'twitter-circle';
-                          }
+                              if (route.name === 'Home') {
+                                iconName = !focused ? 'home' : 'home-circle'
+                              } else if (route.name === 'Learning') {
+                                iconName = !focused ? 'lightbulb-on-outline' : 'lightbulb-on';
+                              } else if (route.name === 'Surface') {
+                                iconName = !focused ? 'weather-windy' : 'weather-windy-variant';
+                              } else if (route.name === 'Tweets') {
+                                iconName = !focused ? 'twitter' : 'twitter-circle';
+                              }
 
-                          // You can return any component that you like here!
-                          return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-                        },
-                      })}
-                      tabBarOptions={{
-                        activeTintColor: '#C1E9C0',
-                        inactiveTintColor: '#707a8a',
-                        style: {
-                          backgroundColor: '#232323',
-                          paddingBottom: '4px',
-                        },
-                      }}
-                    >
-                      <Tab.Screen name="Home" component={Weather} />
-                      <Tab.Screen name="Surface Analysis" component={WPCSurfaceAnalysis} />
-                      <Tab.Screen name="Learning" component={Learning} />
-                      <Tab.Screen name="Tweets" component={Tweets} />
-                    </Tab.Navigator>
-                  </NavigationContainer>
-                </AppContext.Provider>
-              </Fragment>
-            )
-          }}
-          </Query>
-      </ApolloProvider>
+                              if (route.name === 'Tweets' && !focused) return <Feather name={iconName} size={size} color={color} />;
+                              return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+                            },
+                          })}
+                          tabBarOptions={{
+                            activeTintColor: '#C1E9C0',
+                            inactiveTintColor: '#707a8a',
+                            style: {
+                              backgroundColor: '#232323',
+                              paddingBottom: '4px',
+                            },
+                          }}
+                        >
+                          <Tab.Screen name="Home" component={Weather} />
+                          <Tab.Screen name="Surface" component={WPCSurfaceAnalysis} />
+                          <Tab.Screen name="Learning" component={Learning} />
+                          <Tab.Screen name="Tweets" component={Tweets} />
+                        </Tab.Navigator>
+                      </NavigationContainer>
+                  </AppContext.Provider>
+                  </Fragment>
+                )
+              }}
+              </Query>
+          </ApolloProvider>
+        </MainContainer>
+      </Root>
     )
   }
 }
@@ -168,9 +205,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#232323',
     height: '100%',
     padding: 24,
-    animation: 'fadeInAnimation ease 3s',
-    animationIterationCount: 1,
-    animationFillMode: 'forwards',
+    width: '100%',
   },
   body: {
     justifyContent: 'center',
@@ -196,6 +231,10 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   weatherContainer: {
+    // animation: 'fadeInAnimation ease 3s',
+    // animationKeyFrames: '',
+    // animationIterationCount: 1,
+    // animationFillMode: 'forwards',
     backgroundColor: '#232323',
     display: 'flex',
     flexDirection: 'column',

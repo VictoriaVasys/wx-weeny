@@ -1,5 +1,5 @@
-import React, {Fragment, useContext, useLayoutEffect} from 'react';
-import { Image, Linking, Text, View } from 'react-native';
+import React, { useContext } from 'react';
+import { Linking, Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { weatherConditions } from '../utils/WeatherConditions';
 import { AppContext, styles } from "../App";
@@ -27,7 +27,7 @@ const Weather = () => {
           id="spc-overview"
           alt="Storm Prediction Center products overview"
           src="https://www.spc.noaa.gov/products/activity_loop.gif"
-          style={{objectFit: 'none', width: '150%'}}
+          style={{width: '150%'}}
         />
       </div>
       <View style={styles.bodyContainer}>
