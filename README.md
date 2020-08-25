@@ -1,63 +1,34 @@
-# RNGraphQL
-A Pokemon viewer app created with Apollo GraphQL server and React Native.
+# wx weeny
 
-Full tutorial is available at: [https://pusher.com/tutorials/learning-graphql-react-native](https://pusher.com/tutorials/learning-graphql-react-native)
-
-### Prerequisites
-
--   React Native development environment
--   [Node.js](https://nodejs.org/en/)
--   [Yarn](https://yarnpkg.com/en/)
-
-The `starter` branch contains the starting point for the tutorial. The `poke-graphql` branch contains the final output for the tutorial.
-The `master` branch contains all the post-tutorial updates (if any).
+An app to observe, learn and stay current with the weather in your location
 
 ## Getting Started
 
-1.  Clone the repo:
-
-```
-git clone https://github.com/anchetaWern/RNGraphQL.git
-cd RNGraphQL
-```
-
-2. Install the dependencies:
+1. Install the dependencies:
 
 ```
 yarn
 ```
 
-3. Re-create the `ios` and `android` folders:
+2. Run the server:
 
 ```
-react-native eject
+cd server && yarn start
 ```
 
-4. Install the server dependencies:
-
-```
-cd server
-yarn
-```
-
-5. Run the server:
+3. Run the app (in a separate terminal window):
 
 ```
 yarn start
 ```
 
-6. Update `Home.js` with your machine's internal IP address (or use ngrok):
+4. Publish to Vercel
 
 ```
-const client = new ApolloClient({ uri: 'http://YOUR_INTERNAL_IP_ADDRESS:4000/graphql' });
+expo build:web && cd web-build && now --prod
 ```
 
-7. Run the app:
-
-```
-react-native run-android
-react-native run-ios
-```
+y -> enter -> y -> wx-weeny
 
 ## Built With
 
