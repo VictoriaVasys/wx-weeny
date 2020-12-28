@@ -6,23 +6,24 @@ import { AppContext, styles } from "../App";
 
 const Weather = () => {
   const data = useContext(AppContext);
-  const id = data.weather.current.id
+  const id = data.weather && data.weather.current.id
   const codedObservation = data.codedObservation
   const description = data.nextForecastDescription
-  const temperature = data.weather.current.temperature
+  const temperature = data.weather ? Math.round(data.weather.current.temperature * 10) / 10 : 'n/a'
+  const weatherCondition = weatherConditions[id]
 
   return (
     <View style={styles.weatherContainer}>
       <View style={[styles.titleContainer, {marginBottom: 0}]}>
         <MaterialCommunityIcons
           size={96}
-          name={weatherConditions[id].icon}
+          name={weatherCondition ? weatherCondition.icon : weatherConditions.Clear.icon}
           color="#C1E9C0"
         />
-        <Text style={styles.tempText}>{Math.round(temperature * 10) / 10}˚</Text>
+        <Text style={styles.tempText}>{temperature}˚</Text>
       </View>
-      <Text style={[styles.subtitle, {marginBottom: 32}]}>{`${weatherConditions[id].title}... ${weatherConditions[id].subtitle}`}</Text>
-      <div style={{borderRadius: 16, overflow: 'scroll'}}>
+      <Text style={[styles.subtitle, {marginBottom: 32}]}>{weatherCondition ? `${weatherCondition.title}... ${weatherCondition.subtitle}` : 'Weather data is currently unavailable'}</Text>
+      <div style={{borderRadius: 16, overflowX: 'scroll'}}>
         <img
           id="spc-overview"
           alt="Storm Prediction Center products overview"

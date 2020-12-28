@@ -11,7 +11,7 @@ export default function WPCSurfaceAnalysis() {
     <View style={styles.container}>
       <Text style={styles.title}>Surface Analysis</Text>
       <View style={styles.body}>
-        <div style={{ borderRadius: 16, height: '50%', marginBottom: 16, overflow: 'scroll'}}>
+        <div style={{ borderRadius: 16, height: '50%', marginBottom: 16, overflow: 'auto'}}>
           <img
             alt="NWS Weather Prediction Center surface analysis"
             src="https://www.wpc.ncep.noaa.gov/sfc/namussfc15wbg.gif"

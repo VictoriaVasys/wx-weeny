@@ -17,7 +17,7 @@ export default function Learning() {
     <View style={[styles.container, {display: 'flex'}]}>
       <Text style={styles.title}>{fact.toLowerCase()}</Text>
       <div style={{display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between', overflow: 'hidden'}}>
-        <div style={{marginBottom: 0, overflow: 'scroll'}}>
+        <div style={{marginBottom: 0, overflowY: 'auto'}}>
           <table style={{color: '#e6f6e6', fontFamily: 'Verdana', fontSize: '16px', marginBottom: '8px'}}>
             <div dangerouslySetInnerHTML={{__html: links[fact]}} />
           </table>
