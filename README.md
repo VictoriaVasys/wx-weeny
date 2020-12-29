@@ -27,6 +27,7 @@ yarn start
 ```
 expo build:web && cd web-build && now --prod
 ```
+(Can use `expo build:web --no-pwa` to speed up build without progressive web app)
 
 y -> enter -> y -> wx-weeny
 
