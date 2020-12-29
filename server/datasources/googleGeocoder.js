@@ -12,7 +12,7 @@ class GoogleGeocoder extends RESTDataSource {
   }
 
   locationReducer(locationResponse) {
-    let location = 'Brooklyn, NY'
+    let location = 'Fukuoka, Japan'
     if (locationResponse['plus_code']) {
       const code = locationResponse['plus_code']['compound_code'].split(' ')
       code.shift()

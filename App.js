@@ -78,8 +78,6 @@ export const MainContainer = styled.div`
 
 export default class App extends Component {
   state = {
-    lat: 40.7128,
-    lon: -74.0060,
     query: null,
   };
 
@@ -88,19 +86,18 @@ export default class App extends Component {
       position => {
         const lat = position.coords.latitude
         const lon = position.coords.longitude
-        this.setState({ lat, lon })
+        this.setState({ })
+
+        const query = this.getCurrentQuery(lat, lon);
+        this.setState({ lat, lon, query });
       },
       error => {
-        this.setState({
-          error: 'Error Getting Weather Conditions'
-        });
+        const lat = 33.5902
+        const lon = 130.4017
+        const query = this.getCurrentQuery(lat, lon);
+        this.setState({ lat, lon, query });
       }
     );
-    const { lat, lon } = this.state
-    const query = this.getCurrentQuery(lat, lon);
-    this.setState({
-      query
-    });
   }
 
   getCurrentQuery = (lat, lon) => {
@@ -128,7 +125,7 @@ export default class App extends Component {
       <Root>
         <MainContainer>
           <ApolloProvider client={client}>
-            <Query query={gql`${query}`} >
+            <Query query={gql`${query}`} errorPolicy="ignore" >
               {({ loading, error, data }) => {
                 if (loading || error) return <Text style={styles.loading}>
                   <Image style={styles.logo} source={require('./assets/wx-weeny-logo.png')} />
