@@ -92,8 +92,8 @@ export default class App extends Component {
         this.setState({ lat, lon, query });
       },
       error => {
-        const lat = 33.5902
-        const lon = 130.4017
+        const lat = 34.0522
+        const lon = -118.2437
         const query = this.getCurrentQuery(lat, lon);
         this.setState({ lat, lon, query });
       }
