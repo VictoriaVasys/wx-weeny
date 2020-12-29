@@ -4,15 +4,15 @@ import { AntDesign, Feather, Fontisto, MaterialCommunityIcons, SimpleLineIcons }
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { ApolloProvider, Query } from "react-apollo";
-import ApolloClient from "apollo-boost";
-import gql from "graphql-tag";
+import { ApolloProvider, Query } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag';
 
 import Weather from './pages/Weather';
 import Learning from './pages/Learning'
 import WPCSurfaceAnalysis from './pages/WPCSurfaceAnalysis'
 import Tweets from './pages/Tweets'
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const client = new ApolloClient({ uri: 'http://localhost:4000/graphql' });
 const Tab = createBottomTabNavigator();
@@ -78,23 +78,26 @@ export const MainContainer = styled.div`
 
 export default class App extends Component {
   state = {
-    lat: 39.710850,
-    lon: -105.081505,
+    lat: 40.7128,
+    lon: -74.0060,
     query: null,
   };
 
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       position => {
-        this.setState({ lat: position.coords.latitude, lon: position.coords.longitude });
+        const lat = position.coords.latitude
+        const lon = position.coords.longitude
+        this.setState({ lat, lon })
       },
       error => {
         this.setState({
-          error: 'Error Getting Weather Condtions'
+          error: 'Error Getting Weather Conditions'
         });
       }
     );
-    const query = this.getCurrentQuery(this.state.lat, this.state.lon);
+    const { lat, lon } = this.state
+    const query = this.getCurrentQuery(lat, lon);
     this.setState({
       query
     });
@@ -112,6 +115,7 @@ export default class App extends Component {
         }
         codedObservation(lat: ${lat}, lon: ${lon})
         nextForecastDescription(lat: ${lat}, lon: ${lon})
+        location(lat: ${lat}, lon: ${lon})
       }
     `
   }
@@ -249,6 +253,17 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 16,
+  },
+  flexColumnContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  locationText: {
+    color: 'white',
+    fontFamily: 'Courier New',
+    fontSize: 16,
+    paddingRight: 8,
+    textAlign: 'right',
   },
   tempText: {
     color: '#C1E9C0',

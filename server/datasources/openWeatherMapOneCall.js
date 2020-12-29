@@ -11,8 +11,6 @@ class OpenWeatherMapOneCallAPI extends RESTDataSource {
   willSendRequest(request) {
     request.params.set('appid', OPEN_WEATHER_MAP_KEY);
     request.params.set('exclude', 'minutely');
-    request.params.set('lat', 39);
-    request.params.set('lon', -104);
     request.params.set('units', 'imperial');
   }
 
@@ -27,7 +25,7 @@ class OpenWeatherMapOneCallAPI extends RESTDataSource {
   }
 
   async getWeatherByLatLon({ lat, lon }) {
-    const currentWxResponse = await this.get(`data/2.5/onecall`);
+    const currentWxResponse = await this.get(`data/2.5/onecall`, {lat, lon});
     return this.currentWxReducer(currentWxResponse);
   }
 }

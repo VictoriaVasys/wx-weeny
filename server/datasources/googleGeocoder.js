@@ -1,35 +1,33 @@
-const { OPEN_WEATHER_MAP_KEY } = require('../../utils/APIKeys');
-
+const { GOOGLE_KEY } = require('../../utils/APIKeys');
 const { RESTDataSource } = require('apollo-datasource-rest');
 
-class OpenWeatherMapOneCallAPI extends RESTDataSource {
+class GoogleGeocoder extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'https://api.openweathermap.org/';
+    this.baseURL = 'https://maps.googleapis.com/';
   }
 
   willSendRequest(request) {
-    request.params.set('appid', OPEN_WEATHER_MAP_KEY);
-    request.params.set('exclude', 'minutely');
-    request.params.set('lat', 40.7128);
-    request.params.set('lon', -74.0060);
-    request.params.set('units', 'imperial');
+    request.params.set('key', GOOGLE_KEY);
   }
 
-  currentWxReducer(currentWx) {
-    return {
-      current: {
-        description: currentWx.current.weather[0].description,
-        id: currentWx.current.weather[0].main,
-        temperature: currentWx.current.temp,
-      }
-    };
+  locationReducer(locationResponse) {
+    let location = 'Brooklyn, NY'
+    if (locationResponse['plus_code']) {
+      const code = locationResponse['plus_code']['compound_code'].split(' ')
+      code.shift()
+      if (code.includes('USA')) {code.pop(); code[code.length - 1] = code[code.length - 1].slice(0, -1)}
+      location = code.join(' ')
+    }
+    else {console.log("No reverse geocode results.")}
+
+    return location;
   }
 
-  async getWeatherByLatLon({ lat, lon }) {
-    const currentWxResponse = await this.get(`data/2.5/onecall`);
-    return this.currentWxReducer(currentWxResponse);
+  async getLocationByLatLon({ lat, lon }) {
+    const locationResponse = await this.get(`maps/api/geocode/json`, {latlng: `${lat},${lon}`});
+    return this.locationReducer(locationResponse);
   }
 }
 
-module.exports = OpenWeatherMapOneCallAPI;
+module.exports = GoogleGeocoder;

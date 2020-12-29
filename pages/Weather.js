@@ -7,6 +7,7 @@ import { AppContext, styles } from "../App";
 const Weather = () => {
   const data = useContext(AppContext);
   const id = data.weather && data.weather.current.id
+  const location = data.location
   const codedObservation = data.codedObservation
   const description = data.nextForecastDescription
   const temperature = data.weather ? Math.round(data.weather.current.temperature * 10) / 10 : 'n/a'
@@ -15,12 +16,15 @@ const Weather = () => {
   return (
     <View style={styles.weatherContainer}>
       <View style={[styles.titleContainer, {marginBottom: 0}]}>
-        <MaterialCommunityIcons
-          size={96}
-          name={weatherCondition ? weatherCondition.icon : weatherConditions.Clear.icon}
-          color="#C1E9C0"
-        />
-        <Text style={styles.tempText}>{temperature}˚</Text>
+          <MaterialCommunityIcons
+            size={96}
+            name={weatherCondition ? weatherCondition.icon : weatherConditions.Clear.icon}
+            color="#C1E9C0"
+          />
+        <View style={[styles.flexColumnContainer]}>
+          <Text style={styles.locationText}>{location}</Text>
+          <Text style={styles.tempText}>{temperature}˚</Text>
+        </View>
       </View>
       <Text style={[styles.subtitle, {marginBottom: 32}]}>{weatherCondition ? `${weatherCondition.title}... ${weatherCondition.subtitle}` : 'Weather data is currently unavailable'}</Text>
       <div style={{borderRadius: 16, overflowX: 'scroll'}}>
@@ -32,7 +36,6 @@ const Weather = () => {
         />
       </div>
       <View style={styles.bodyContainer}>
-        {/*<Text style={[styles.title, {marginBottom: 0}]}>Denver</Text>*/}
         <Text style={styles.description}>{description}</Text>
         <Text style={styles.observation}>{codedObservation}</Text>
         <Text style={styles.link} onPress={ ()=> Linking.openURL('http://www.theweatherprediction.com/jargon/') } >Glossary of NWS Forecast Discussion Jargon</Text>

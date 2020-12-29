@@ -4,7 +4,8 @@ const typeDefs = gql`
   type Query {
     weather(lat: Float!, lon: Float!): Weather,
     codedObservation(lat: Float!, lon: Float!): String,
-    nextForecastDescription(lat: Float!, lon: Float!): String
+    nextForecastDescription(lat: Float!, lon: Float!): String,
+    location(lat: Float!, lon: Float!): String,
   }
 
   type Weather {

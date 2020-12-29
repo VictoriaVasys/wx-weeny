@@ -3,8 +3,10 @@ module.exports = {
     weather: (_, { lat, lon }, { dataSources }) =>
       dataSources.openWeatherMapOneCallAPI.getWeatherByLatLon({ lat, lon }),
     codedObservation: (_, { lat, lon }, { dataSources }) =>
-      dataSources.WeatherGovAPI.getCodedObservationsByLatLon({ lat, lon }),
+      dataSources.weatherGovAPI.getCodedObservationsByLatLon({ lat, lon }),
     nextForecastDescription: (_, { lat, lon }, { dataSources }) =>
-      dataSources.WeatherGovAPI.getForecastByLatLon({ lat, lon }),
+      dataSources.weatherGovAPI.getForecastByLatLon({ lat, lon }),
+    location: (_, { lat, lon }, { dataSources }) =>
+      dataSources.googleGeocoderAPI.getLocationByLatLon({ lat, lon }),
   }
 };

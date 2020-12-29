@@ -4,13 +4,15 @@ const resolvers = require('./resolvers');
 
 const OpenWeatherMapOneCallAPI = require('./datasources/openWeatherMapOneCall');
 const WeatherGovAPI = require('./datasources/weatherGov');
+const GoogleGeocoderAPI = require('./datasources/googleGeocoder');
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
     openWeatherMapOneCallAPI: new OpenWeatherMapOneCallAPI(),
-    WeatherGovAPI: new WeatherGovAPI(),
+    weatherGovAPI: new WeatherGovAPI(),
+    googleGeocoderAPI: new GoogleGeocoderAPI(),
   })
 });
 
