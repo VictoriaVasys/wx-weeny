@@ -86,8 +86,6 @@ export default class App extends Component {
       position => {
         const lat = position.coords.latitude
         const lon = position.coords.longitude
-        this.setState({ })
-
         const query = this.getCurrentQuery(lat, lon);
         this.setState({ lat, lon, query });
       },
@@ -96,7 +94,8 @@ export default class App extends Component {
         const lon = -118.2437
         const query = this.getCurrentQuery(lat, lon);
         this.setState({ lat, lon, query });
-      }
+      },
+      {timeout:1000}
     );
   }
 
