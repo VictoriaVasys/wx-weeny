@@ -31,6 +31,19 @@ expo build:web && cd web-build && now --prod
 
 y -> enter -> y -> wx-weeny
 
+5. Setup Heroku (may skip if already completed)
+```
+brew tap heroku/brew && brew install heroku
+heroku login
+heroku git:remote -a wx-weeny
+```
+
+5. Publish server to Heroku
+From root dir:
+```
+git subtree push --prefix server heroku master
+```
+
 ## Built With
 
 -   [React Native](http://facebook.github.io/react-native/)

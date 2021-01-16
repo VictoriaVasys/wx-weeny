@@ -1,6 +1,7 @@
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
+const cors = require('cors')
 
 const OpenWeatherMapOneCallAPI = require('./datasources/openWeatherMapOneCall');
 const WeatherGovAPI = require('./datasources/weatherGov');
@@ -16,6 +17,8 @@ const server = new ApolloServer({
   })
 });
 
-server.listen().then(({ url }) => {
-  console.log(`GraphQL server is running at ${url}`);
+server.use(cors()) // enable `cors` to set HTTP response header: Access-Control-Allow-Origin: *
+
+server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
 });

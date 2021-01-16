@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import MainContainer from './MainContainer';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: process.env.NODE_ENV === 'production' ? 'https://wx-weeny.herokuapp.com/' : 'http://localhost:4000/graphql',
   cache: new InMemoryCache()
 });
 
