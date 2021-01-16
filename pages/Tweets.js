@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import {Image, Text, View} from 'react-native';
-import { styles } from '../App'
+import { styles } from '../MainContainer'
 
 export default function Tweets() {
   useEffect(() => {

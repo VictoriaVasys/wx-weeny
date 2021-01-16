@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Linking, Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { weatherConditions } from '../utils/WeatherConditions';
-import { AppContext, styles } from "../App";
+import { AppContext, styles } from '../MainContainer';
 
 const Weather = () => {
   const data = useContext(AppContext);

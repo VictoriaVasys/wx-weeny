@@ -1,12 +1,10 @@
 import React, {useContext} from 'react';
 import { Linking, Text, View } from 'react-native';
-import { AppContext, styles } from "../App";
+import { AppContext, styles } from '../MainContainer';
 import WindyMap from "../components/WindyMap";
-import { WINDY_KEY } from "../utils/APIKeys";
 
 export default function WPCSurfaceAnalysis() {
   const data = useContext(AppContext);
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Surface Analysis</Text>
@@ -21,7 +19,7 @@ export default function WPCSurfaceAnalysis() {
         </div>
         <div style={{textAlign: 'center'}}>
         </div>
-        <WindyMap lat={data.lat} lon={data.lon} windyKey={WINDY_KEY} />
+        <WindyMap lat={data.lat} lon={data.lon} />
       </View>
     </View>
   );

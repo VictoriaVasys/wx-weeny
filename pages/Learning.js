@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import links from '../links.js'
-import { styles } from "../App";
+import { styles } from "../MainContainer";
 
 export default function Learning() {
   const linksSize = Object.keys(links).length

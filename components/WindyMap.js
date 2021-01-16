@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Map, LayersControl, TileLayer, Marker, Popup } from "react-windy-leaflet";
+import { WINDY_KEY } from '../utils/APIKeys'
 // import '../components/WindyMap.css'
 
 const { BaseLayer, Overlay } = LayersControl;
@@ -16,7 +17,7 @@ export default class WindyMap extends Component {
     return (
       <Map
         className="leaflet-container"
-        windyKey={this.props.windyKey}
+        windyKey={WINDY_KEY}
         windyLabels={true}
         windyControls={true}
         overlay="wind"
