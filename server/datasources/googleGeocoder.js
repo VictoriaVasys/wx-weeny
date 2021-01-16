@@ -1,5 +1,5 @@
-const { GOOGLE_KEY } = require('../../utils/APIKeys');
 const { RESTDataSource } = require('apollo-datasource-rest');
+require('dotenv').config();
 
 class GoogleGeocoder extends RESTDataSource {
   constructor() {
@@ -8,7 +8,7 @@ class GoogleGeocoder extends RESTDataSource {
   }
 
   willSendRequest(request) {
-    request.params.set('key', GOOGLE_KEY);
+    request.params.set('key', process.env.EXPO_GOOGLE_KEY);
   }
 
   locationReducer(locationResponse) {

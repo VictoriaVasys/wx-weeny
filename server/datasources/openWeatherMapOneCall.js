@@ -1,6 +1,5 @@
-const { OPEN_WEATHER_MAP_KEY } = require('../../utils/APIKeys');
-
 const { RESTDataSource } = require('apollo-datasource-rest');
+require('dotenv').config();
 
 class OpenWeatherMapOneCallAPI extends RESTDataSource {
   constructor() {
@@ -9,7 +8,7 @@ class OpenWeatherMapOneCallAPI extends RESTDataSource {
   }
 
   willSendRequest(request) {
-    request.params.set('appid', OPEN_WEATHER_MAP_KEY);
+    request.params.set('appid', process.env.EXPO_OPEN_WEATHER_MAP_KEY);
     request.params.set('exclude', 'minutely');
     request.params.set('units', 'imperial');
   }
