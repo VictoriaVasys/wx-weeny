@@ -3,8 +3,10 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import styled from 'styled-components';
 import MainContainer from './MainContainer';
 
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const url = 'https://wx-weeny.herokuapp.com/graphql'
 const client = new ApolloClient({
-  uri: process.env.NODE_ENV === 'production' ? 'https://wx-weeny.herokuapp.com/graphql' : 'http://localhost:4000/graphql',
+  uri: process.env.NODE_ENV === 'production' ? proxyurl + url : 'http://localhost:4000/graphql',
   cache: new InMemoryCache()
 });
 
