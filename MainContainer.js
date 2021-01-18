@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import {Image, StyleSheet, Text} from 'react-native';
+import { Image, StyleSheet, Text } from 'react-native';
 import { AntDesign, Feather, Fontisto, MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -40,7 +40,7 @@ export const AppContext = React.createContext({ data: { weather: null } });
 //   );
 // }
 
-const Container = styled.div`
+export const Container = styled.div`
   height: 100%;
   max-height: 840px;
   max-width: 440px;
@@ -91,61 +91,58 @@ export default function MainContainer() {
 
   const { loading, error, data } = useQuery(getCurrentQuery(lat, lon));
 
-  if (!data) return null;
-  return (
-    <Container>
-      {(loading || error) ?
-        (
-          <Text style={styles.loading}>
-            <Image style={styles.logo} source={require('./assets/wx-weeny-logo.png')} />
-            <Image style={styles.loadingIndicator} source={require('./assets/rolling.svg')} />
-          </Text>
-        ) : (
-          <Fragment>
-            {/*<FadeOutView style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></FadeOutView>*/}
-            <AppContext.Provider value={{...data, lat, lon}}>
-              <NavigationContainer>
-                <Tab.Navigator
-                  screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused, color, size }) => {
-                      let iconName;
-
-                      if (route.name === 'Home') {
-                        return focused ? <Fontisto name="home" size={20} color={color} /> : <SimpleLineIcons name="home" size={20} color={color} />
-                      } else if (route.name === 'Surface') {
-                        iconName = !focused ? 'wind' : 'cloudy-gusts';
-                        return <Fontisto name={iconName} size={20} color={color} />
-                      } else if (route.name === 'Learning') {
-                        iconName = !focused ? 'lightbulb-on-outline' : 'lightbulb-on';
-                        return <MaterialCommunityIcons name={iconName} size={24} color={color} />
-                      } else if (route.name === 'Tweets') {
-                        return focused ? <AntDesign name="twitter" size={22} color={color} /> : <Feather name="twitter" size={22} color={color} />
-                      }
-                    },
-                  })}
-                  tabBarOptions={{
-                    activeTintColor: '#C1E9C0',
-                    adaptive: false,
-                    inactiveTintColor: '#878F9B',
-                    style: {
-                      backgroundColor: '#232323',
-                      paddingBottom: '6px',
-                      paddingTop: '4px',
-                    },
-                  }}
-                >
-                  <Tab.Screen name="Home" component={Weather} />
-                  <Tab.Screen name="Surface" component={WPCSurfaceAnalysis} />
-                  <Tab.Screen name="Learning" component={Learning} />
-                  <Tab.Screen name="Tweets" component={Tweets} />
-                </Tab.Navigator>
-              </NavigationContainer>
-          </AppContext.Provider>
-          </Fragment>
-        )
-      }
-    </Container>
+  const LoadingScreen = (
+    <Text style={styles.loading}>
+      <Image style={styles.logo} source={require('./assets/wx-weeny-logo.png')} />
+      <Image style={styles.loadingIndicator} source={require('./assets/rolling.svg')} />
+    </Text>
   )
+  const WxApp = (
+    <Fragment>
+      {/*<FadeOutView style={styles.loading}><Image style={styles.loadingImage} source={require('./assets/wx-weeny-logo.png')} /></FadeOutView>*/}
+      <AppContext.Provider value={{...data, lat, lon}}>
+        <NavigationContainer>
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color }) => {
+                let iconName;
+
+                if (route.name === 'Home') {
+                  return focused ? <Fontisto name="home" size={20} color={color} /> : <SimpleLineIcons name="home" size={20} color={color} />
+                } else if (route.name === 'Surface') {
+                  iconName = !focused ? 'wind' : 'cloudy-gusts';
+                  return <Fontisto name={iconName} size={20} color={color} />
+                } else if (route.name === 'Learning') {
+                  iconName = !focused ? 'lightbulb-on-outline' : 'lightbulb-on';
+                  return <MaterialCommunityIcons name={iconName} size={24} color={color} />
+                } else if (route.name === 'Tweets') {
+                  return focused ? <AntDesign name="twitter" size={22} color={color} /> : <Feather name="twitter" size={22} color={color} />
+                }
+              },
+            })}
+            tabBarOptions={{
+              activeTintColor: '#C1E9C0',
+              adaptive: false,
+              inactiveTintColor: '#878F9B',
+              style: {
+                backgroundColor: '#232323',
+                paddingBottom: '6px',
+                paddingTop: '4px',
+              },
+            }}
+          >
+            <Tab.Screen name="Home" component={Weather} />
+            <Tab.Screen name="Surface" component={WPCSurfaceAnalysis} />
+            <Tab.Screen name="Learning" component={Learning} />
+            <Tab.Screen name="Tweets" component={Tweets} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </AppContext.Provider>
+    </Fragment>
+  )
+
+  const content = (loading || Boolean(error) || !Boolean(data)) ? LoadingScreen : WxApp
+  return <Container>{content}</Container>
 }
 
 

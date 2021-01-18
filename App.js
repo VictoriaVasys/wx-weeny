@@ -1,9 +1,14 @@
-import React from 'react';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import React, { useMemo } from 'react';
+import { ApolloClient, InMemoryCache, getApolloContext } from '@apollo/client';
 import styled from 'styled-components';
 import MainContainer from './MainContainer';
 
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
+const CustomApolloProvider = ({ client, children }) => {
+  const ApolloContext = getApolloContext();
+  const value = useMemo(() => ({ client }), [client]);
+  return <ApolloContext.Provider value={value}>{children}</ApolloContext.Provider>;
+};
+
 const url = 'https://wx-weeny.herokuapp.com/graphql'
 const client = new ApolloClient({
   uri: process.env.NODE_ENV === 'production' ? proxyurl + url : 'http://localhost:4000/graphql',
@@ -35,10 +40,8 @@ export const Root = styled.div`
 
 export default function App() {
   return (
-    <ApolloProvider client={client}>
-      <Root>
-        <MainContainer />
-      </Root>
-    </ApolloProvider>
+    <Root>
+      <CustomApolloProvider client={client} children={<MainContainer />} />
+    </Root>
   )
 }
