@@ -11,7 +11,7 @@ const CustomApolloProvider = ({ client, children }) => {
 
 const url = 'https://wx-weeny.herokuapp.com/graphql'
 const client = new ApolloClient({
-  uri: process.env.NODE_ENV === 'production' ? proxyurl + url : 'http://localhost:4000/graphql',
+  uri: process.env.NODE_ENV === 'production' ? url : 'http://localhost:4000/graphql',
   cache: new InMemoryCache()
 });
 
